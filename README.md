@@ -17,7 +17,7 @@ A *Wang tile* is a unit square with each edge assigned a color. *Wang's domino p
 ### Undecidability and Turing machines
 
 ## Methodology
-The method use to prove the undecidability is reduction. It goes from a Turing machine to Wang tiles to polyominoes to a set of 3 polyominoes.
+The method use to prove the undecidability is reduction. If there exists a reduction from a problem $A$ to a problem $B$ and problem $B$ is known to be undecidable, then the problem $B$ must also be undecidable. Therefore we will go from a Turing machine (Halting problem) to Wang tiles (Wang's domino problem) which will prove the undecidability of Wang tiles. Then we do a second reduction from Wang tiles to a set of 3 polyominoes.
 
 ### Reduction from Turing machine to Wang tiles
 
