@@ -11,7 +11,49 @@
   <body>
     <h1>Undecidability of the 5-polyomino problem</h1>
     <p>
-      <i>This project was completed as part of the Computational Geometry course (INFO-F420).</i>
+      <i>This project was completed as part of the Computational Geometry course (INFO-F420) by Camille Leduc.</i>
     </p>
+    <h2>Our problem</h2>
+
+    <h2>Key concepts</h2>
+    <h3>Wang tiles</h3>
+    <p>
+      A Wang tile is a unit square with each edge assigned a color, a set of 3 tiles is illustrated in the figure below. 
+      Wang's domino problem involves tiling the entire plane with translated copies from a finite set of Wang tiles. 
+      The tiles must be edge-to-edge and the color of common edges between two adjacent Wang tiles must be the same [<a href="#refs">1</a>]. 
+    </p>
+    <figure>
+      <img src="images/wangtiles.png" alt="Set of 3 Wang tiles" style="width:320px;height:90px;">
+      <figcaption>Set of 3 Wang tiles [<a href="#refs">1</a>]</figcaption>
+    </figure>
+    <p>
+      Berger showed that Wang's domino problem is undecidable combining the facts of the existence of an aperiodic set of Wang tiles and the ability to simulate a Turing machine with Wang tiles [<a href="#refs">1</a>][<a href="#refs">2</a>].
+    </p>
+    <!-- show javascript representation -->
+
+    <h3>Polyominoes</h3>
+    <p>
+      The term polyominoes refers to <i>n</i>-ominoes with a variable <i>n</i>, where <i>n</i> represents the number of connected square units [<a href="#refs">3</a>]. As you can see in the image below, a 5-omino, also called a pentomino, can have a multitude of shapes.
+    </p>
+    <figure>
+      <img src="images/pentominoes.png" alt="Set of pentominoes" style="width:320px;height:140px;">
+      <figcaption>Set of pentominoes [<a href ="https://www.cs.brandeis.edu/~storer/JimPuzzles/ZPAGES/zzzPentominoes.html">source</a>]</figcaption>
+    </figure>
+
+    <h3>Turing machine</h3>
+
+    <!-- show javascript representation -->
+
+    <h3>Undecidability</h3>
+
+    <h2>Reduction from Turing machine to Wang tiles</h2>
+
+    <h2 id="refs">References</h2>
+    <p>
+      [1] C. Yang and Z. Zhang. <i>A proof of Ollinger’s conjecture: undecidability of tiling the plane with a set of 8 polyominoes</i>. 2024. <a href = "https://doi.org/10.48550/arXiv.2403.13472">https://doi.org/10.48550/arXiv.2403.13472</a>.<br>
+      [2] R. Berger. "The undecidability of the domino problem". In: <i>Memoirs of the American Mathematical Society</i> 66 (1966), pp. 1–72. <br>
+      [3] S.W. Golomb. “Tiling with polyominoes”. In: <i>Journal of Combinatorial Theory</i> 1.2 (1966), pp. 280–296.<br>
+    </p>
+
   </body>
 </html>
