@@ -16,53 +16,24 @@ class WangTile {
     this.west = west;
   }
 
-  draw(x, y) {
-    fill(this.north);
-    triangle(x, y, x+width, y, x+width/2, y+width/2);
+  draw(p, x, y) {
+    p.fill(this.north);
+    p.triangle(x, y, x+width, y, x+width/2, y+width/2);
 
-    fill(this.east);
-    triangle(x+width/2, y+width/2, x+width, y, x+width, y+width);
+    p.fill(this.east);
+    p.triangle(x+width/2, y+width/2, x+width, y, x+width, y+width);
 
-    fill(this.south);
-    triangle(x+width/2, y+width/2, x+width, y+width, x, y+width);
+    p.fill(this.south);
+    p.triangle(x+width/2, y+width/2, x+width, y+width, x, y+width);
 
-    fill(this.west);
-    triangle(x, y, x, y+width, x+width/2, y+width/2);
+    p.fill(this.west);
+    p.triangle(x, y, x, y+width, x+width/2, y+width/2);
     
-    fill("black");
+    p.fill("black");
   }
 }
 
 var tiles = [];
-
-function setup() {
-  const container = document.getElementById("wangContent");
-  createCanvas(windowWidth, 200).parent(container);
-  
-  button = createButton("New set of tiles");
-  button.parent(container);
-  button.center('horizontal');
-  button.mousePressed(randomTiles);
-}
-
-function draw() {
-  background(255);
-  fill("black");
-  textSize(20);
-  text("Set of 5 Wang tiles with random colors", windowWidth/2-180, 20);
-  let x = windowWidth/2-250;
-  let y = 75;
-  for (i in tiles) {
-    x += 70;
-    tiles[i].draw(x, y);
-  }
-}
-
-windowResized = function () {
-  resizeCanvas(windowWidth, 200);
-  text("Set of 5 Wang tiles with random colors", windowWidth/2-180, 20);
-  button.center('horizontal');
-};
 
 function randomTiles() {
   tiles = [];
@@ -74,3 +45,37 @@ function randomTiles() {
     tiles.push(new WangTile(n, e, s, w));
   }
 }
+
+var wangTilesSketch = function(p) {
+  p.setup = function() {
+    let canvas1 = p.createCanvas(p.windowWidth, 200);
+    canvas1.parent("canvas1");
+    randomTiles();
+    
+    button = p.createButton("New set of tiles");
+    button.parent("canvas1");
+    button.center('horizontal');
+    button.mousePressed(randomTiles);
+  };
+
+  p.draw = function() {
+    p.background(255);
+    p.fill("black");
+    p.textSize(20);
+    p.text("Set of 5 Wang tiles with random colors", p.windowWidth/2-180, 20);
+    let x = p.windowWidth/2-250;
+    let y = 75;
+    for (i in tiles) {
+      x += 70;
+      tiles[i].draw(p, x, y);
+    }
+  };
+
+  p.windowResized = function () {
+    p.resizeCanvas(p.windowWidth, 200);
+    p.text("Set of 5 Wang tiles with random colors", p.windowWidth/2-180, 20);
+    button.center('horizontal');
+  };
+};
+
+new p5(wangTilesSketch, "canvas1")

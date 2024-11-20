@@ -5,6 +5,8 @@
     <meta name="author" content="Camille Leduc">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
+    <script src="wangTile.js"></script>
+    <script src="turingMachine.js"></script>
 
     <title>Undecidability of the 5-polyomino problem</title>
   </head>
@@ -30,8 +32,9 @@
       Berger showed that Wang's domino problem is undecidable combining the facts of the existence of an aperiodic set of Wang tiles and the ability to simulate a Turing machine with Wang tiles [<a href="#refs">1</a>][<a href="#refs">2</a>].
     </p>
     <!-- show javascript representation -->
-    <div id="wangContent"></div>
-    <script src="wangTile.js"></script>
+    <div class="container" id="wangContent">
+      <div id="canvas1"></div>
+    </div>
     
 
     <h3>Polyominoes</h3>
@@ -46,6 +49,9 @@
     <h3>Turing machine</h3>
 
     <!-- show javascript representation -->
+    <div class="container" id="turingMachineContent">
+      <div id="canvas2"></div>
+    </div>
 
     <h3>Undecidability</h3>
 
