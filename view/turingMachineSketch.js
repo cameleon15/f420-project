@@ -1,8 +1,8 @@
 import { TuringMachine } from "../model/turingMachine.js";
-import { states, finalState, transitionTable } from "../constants.js";
+import { states, finalState, transitionTable, alphabet } from "../constants.js";
 
 var turingMachineSketch = function(p) {
-    let machine = new TuringMachine(states, finalState, transitionTable);
+    let machine = new TuringMachine(states, alphabet, finalState, transitionTable);
   
     function startMachine() {
       let input = ["#", 1, 1, "#", "#", "#", "#", "#", "#", "#", "#", "#"];

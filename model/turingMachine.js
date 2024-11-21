@@ -28,8 +28,9 @@ class MachineState {
 }
 
 export class TuringMachine {
-  constructor(states, finalState, transitionTable) {
+  constructor(states, alphabet, finalState, transitionTable) {
     this.states = states;
+    this.alphabet = alphabet;
     this.finalState = finalState;
     this.transitionTable = transitionTable;
     this.head = 0;
