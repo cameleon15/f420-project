@@ -5,8 +5,9 @@
     <meta name="author" content="Camille Leduc">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.min.js"></script>
-    <script src="wangTile.js"></script>
-    <script src="turingMachine.js"></script>
+    <script type="module" src="model/wangTile.js"></script>
+    <script type="module" src="model/turingMachine.js"></script>
+    <script type="module" src="constants.js"></script>
 
     <title>Undecidability of the 5-polyomino problem</title>
   </head>
@@ -35,6 +36,7 @@
     <div class="container" id="wangContent">
       <div id="canvas1"></div>
     </div>
+    <script type="module" src="view/wangTilesSketch.js"></script>
     
 
     <h3>Polyominoes</h3>
@@ -52,6 +54,7 @@
     <div class="container" id="turingMachineContent">
       <div id="canvas2"></div>
     </div>
+    <script type="module" src="view/turingMachineSketch.js"></script>
 
     <h3>Undecidability</h3>
 
