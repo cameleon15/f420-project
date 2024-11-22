@@ -25,9 +25,9 @@ export class WangTile {
     if (values == true) {
       let shift = 2.5;
       p.text(colorMap.get(this.north), x+tileWidth/2-shift, y+15);
-      p.text(colorMap.get(this.east), x+tileWidth-5, y+tileWidth/2);
+      p.text(colorMap.get(this.east), x+tileWidth-10, y+tileWidth/2);
       p.text(colorMap.get(this.south), x+tileWidth/2-shift, y+tileWidth-5);
-      p.text(colorMap.get(this.west), x+5, y+tileWidth/2-shift);
+      p.text(colorMap.get(this.west), x+5, y+tileWidth/2+10);
     }
   }
 }

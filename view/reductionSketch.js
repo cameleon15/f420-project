@@ -9,10 +9,10 @@ var reductionSketch = function(p) {
     p.fill("black");
     p.textSize(20);
     p.text("Reduction", p.windowWidth/2-75, 50);
-    let button = p.createButton("Execute");
+    /*let button = p.createButton("Execute");
     button.parent("canvas3");
     button.center('horizontal');
-    //button.mousePressed(startMachine);
+    button.mousePressed(startMachine);*/
   };
 
   p.draw = function() {
@@ -36,13 +36,33 @@ var reductionSketch = function(p) {
       tile.draw(p, x, y, true);
       x += 70;
     }
+    p.textSize(15);
+    let x1 = x;
+    p.text("Action tiles", x1, 70);
+    p.textSize(10);
+    y = 80;
+    for (let i=0; i<reduction.actionTiles.length; i++) {
+      let tile = reduction.actionTiles[i];
+      tile.draw(p, x1, y, true);
+      x1 += 70;
+    }
+    p.textSize(15);
+    let x2 = x;
+    p.text("Move tiles", x2, 160);
+    p.textSize(10);
+    y = 170;
+    for (let i=0; i<reduction.moveTiles.length; i++) {
+      let tile = reduction.moveTiles[i];
+      tile.draw(p, x2, y, true);
+      x2 += 70;
+    }
   };
 
   p.windowResized = function() {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
     p.textSize(20);
     p.text("Turing Machine", p.windowWidth/2-75, 50);
-    button.center('horizontal');
+    //button.center('horizontal');
   };
 };
 
