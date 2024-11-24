@@ -23,13 +23,15 @@ export const beige = "#FECBAF";
 export const pistachio = "#D6F393";
 export const colors = [red, orange, yellow, green, blue];
 
+
+
 // Turing machine
 export const right = 1;
 export const left = -1;
 export const alphabet = ["0", "1", "#"];
-export const states = [0,1,2,3];
-export const finalState = 3;
 export const empty = "";
+export const states = [0, 1, 2, 3];
+export const finalState = 3;
 
 import { MachineStep } from "./model/turingMachine.js";
 export const transitionTable = {
