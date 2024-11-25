@@ -1,4 +1,4 @@
-import { alphabet, states, tileWidth, transitions, transitionTable } from "../constants.js";
+import { alphabet, states, tileWidth } from "../constants.js";
 import { Reduction } from "../model/reduction.js";
 
 var reductionSketch = function(p) {
@@ -6,11 +6,13 @@ var reductionSketch = function(p) {
   
   p.setup = function() {
     p.textAlign(p.CENTER, p.CENTER);
-    let canvas3 = p.createCanvas(p.windowWidth, 500);
+    let canvas3 = p.createCanvas(p.windowWidth, 600);
     canvas3.parent("canvas3");
     p.fill("black");
     p.textSize(20);
     p.text("Reduction", p.windowWidth/2, 50);
+
+    reduction.run(["#","0", "1", "0", "1"]);
   };
 
   p.draw = function() {
@@ -56,17 +58,22 @@ var reductionSketch = function(p) {
     p.text("Move tiles", x+35, 160);
     p.textSize(10);
     y = 180;
-    for (let i=0; i<states.length-1; i++) {
-      for (let j=0; j<alphabet.length; j++) {
-        let tile = reduction.moveTiles[[states[i], alphabet[j], transitionTable[i][alphabet[j]].newState]];
-        if (tile) {
-          tile.draw(p, x, y, true);
-          x+=70;
-        }
+    let k = 0;
+    for (const tile of Object.values(reduction.moveTiles)) {
+      tile.draw(p, x, y, true);
+      x+=70;
+      k+=1
+      if (k == alphabet.length) {
+        x = align;
+        y += tileWidth + 10;
+        k = 0;
       }
-      x = align;
-      y+=tileWidth+10;
     }
+
+    p.textSize(15);
+    p.text("Binary increment for entry '#1010'", x+340, 70);
+    p.textSize(10);
+    reduction.draw(p, x+3*tileWidth+75, 90);
   };
 
   p.windowResized = function() {

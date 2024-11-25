@@ -5,7 +5,7 @@ var turingMachineSketch = function(p) {
     let machine = new TuringMachine(states, alphabet, finalState, transitionTable);
   
     function startMachine() {
-      let input = ["#", 1, 1, "#", "#", "#", "#", "#", "#", "#", "#", "#"];
+      let input = ["1", "1"];
       machine.run(input);
     }
   

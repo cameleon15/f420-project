@@ -7,10 +7,13 @@ export class MachineStep {
 }
 
 class MachineState {
-  constructor(state, head, tape) {
+  constructor(state, newState, read, head, tape, direction) {
     this.state = state;
+    this.newState = newState;
+    this.read = read;
     this.head = head;
     this.tape = tape;
+    this.direction = direction;
   }
 
   draw(p, x, y) {
@@ -38,26 +41,33 @@ export class TuringMachine {
     this.steps = [];
   }
   read() {
-    let step = this.transitionTable[this.currentState][this.tape[this.head]];
+    let state = this.currentState;
+    let read = this.tape[this.head];
+    let step = this.transitionTable[this.currentState][read];
+    console.log(step, this.currentState, read, this.tape, this.head);
     this.currentState = step.newState;
     this.tape[this.head] = step.rewrite;
     this.head += step.direction;
     if (this.head == this.tape.length) this.tape.push("#");
+    if (this.head < 0) {
+      this.tape.unshift("#");
+      this.head = 0;
+    } 
+    this.steps.push(new MachineState(state, this.currentState, read, this.head, structuredClone(this.tape), step.direction));
   }
 
   run(input) {
     this.tape = input;
-    this.steps.push(new MachineState(this.currentState, this.head, structuredClone(this.tape)));
+    this.steps.push(new MachineState(this.currentState, this.currentState, this.tape[this.head], this.head, structuredClone(this.tape), 0));
     while (this.currentState != this.finalState) {
       this.read();
-      this.steps.push(new MachineState(this.currentState, this.head, structuredClone(this.tape)));
     }
   }
 
   draw(p, x, y) {
     for (let i=0; i<this.steps.length; i++) {
       this.steps[i].draw(p, x, y);
-      y += 75;
+      y += 50;
     }
   }
 }
