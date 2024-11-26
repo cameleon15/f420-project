@@ -25,11 +25,12 @@ export class WangTile {
     
     p.fill("black");
 
-    if (values === true) {
-        p.text(colorMap.get(this.north), x + halfTile, y + halfTile / 2);
-        p.text(colorMap.get(this.east), x + (3 * halfTile) / 2, y + halfTile);
-        p.text(colorMap.get(this.south), x + halfTile, y + (3 * halfTile) / 2);
-        p.text(colorMap.get(this.west), x + halfTile / 2, y + halfTile);
+    if (values == true) {
+      p.textAlign(p.CENTER, p.CENTER);
+      p.text(colorMap.get(this.north), x + halfTile, y + halfTile / 2);
+      p.text(colorMap.get(this.east), x + (3 * halfTile) / 2, y + halfTile);
+      p.text(colorMap.get(this.south), x + halfTile, y + (3 * halfTile) / 2);
+      p.text(colorMap.get(this.west), x + halfTile / 2, y + halfTile);
     }
 }
 

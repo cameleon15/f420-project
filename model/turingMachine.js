@@ -34,17 +34,18 @@ export class TuringMachine {
   constructor(states, alphabet, finalState, transitionTable) {
     this.states = states;
     this.alphabet = alphabet;
+    if (!this.alphabet.includes("#")) this.alphabet.push("#");
     this.finalState = finalState;
     this.transitionTable = transitionTable;
     this.head = 0;
     this.currentState = 0;
     this.steps = [];
   }
+
   read() {
     let state = this.currentState;
     let read = this.tape[this.head];
     let step = this.transitionTable[this.currentState][read];
-    console.log(step, this.currentState, read, this.tape, this.head);
     this.currentState = step.newState;
     this.tape[this.head] = step.rewrite;
     this.head += step.direction;
@@ -69,5 +70,6 @@ export class TuringMachine {
       this.steps[i].draw(p, x, y);
       y += 50;
     }
+    return y;
   }
 }

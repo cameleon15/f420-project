@@ -31,7 +31,8 @@
       <figcaption>Set of 3 Wang tiles [<a href="#refs">1</a>]</figcaption>
     </figure>
     <p>
-      Berger showed that Wang's domino problem is undecidable combining the facts of the existence of an aperiodic set of Wang tiles and the ability to simulate a Turing machine with Wang tiles [<a href="#refs">1</a>][<a href="#refs">2</a>].
+      Berger showed that Wang's domino problem is undecidable combining the facts of the existence of an aperiodic set of Wang tiles and the ability to simulate a 
+      Turing machine with Wang tiles [<a href="#refs">1</a>][<a href="#refs">2</a>].
     </p>
     <!-- show javascript representation -->
     <div class="container" id="wangContent">
@@ -42,7 +43,8 @@
 
     <h3>Polyominoes</h3>
     <p>
-      The term polyominoes refers to <i>n</i>-ominoes with a variable <i>n</i>, where <i>n</i> represents the number of connected square units [<a href="#refs">3</a>]. As you can see in the image below, a 5-omino, also called a pentomino, can have a multitude of shapes.
+      The term polyominoes refers to <i>n</i>-ominoes with a variable <i>n</i>, where <i>n</i> represents the number of connected square units [<a href="#refs">3</a>]. 
+      As you can see in the image below, a 5-omino, also called a pentomino, can have a multitude of shapes.
     </p>
     <figure>
       <img src="images/pentominoes.png" alt="Set of pentominoes" style="width:320px;height:140px;">
@@ -50,7 +52,27 @@
     </figure>
 
     <h3>Turing machine</h3>
-
+    <p>
+      A Turing machine is a formal definition of computation device [<a href="#refs">4</a>]. It takes an input over a given alphabet and outputs the result after several steps. 
+      The machine is based on three essential elements: a tape, a head and an internal state. 
+    </p>
+    <p>
+      The tape is an infinite array of cells. Each cell contains a symbol and the input is put on the tape. The head marks a cell of the tape. The internal state of the machine 
+      and the symbol read at the position of the head allow the machine to make a decision at each step. This information is used to rewrite the symbol on the tape, change the 
+      internal state and shift the position of the head.
+    </p>
+    <p>
+      A Turing machine is formally defined by:
+      <ul>
+        <li>A finite set of states <i>Q</i> with an accepting and a refusing state.</li>
+        <li>An input alphabet <i>&Sigma;</i>.</li>
+        <li>A work alphabet <i>T &supset; &Sigma;</i>, containing the symbol "#"", called the blank symbol.</li>
+        <li>A transition function <i>&delta;: T &times; Q &rightarrow; T &times; Q &times; {-1,1}</i>.</li>
+      </ul>
+      The transition function such that <i>&delta;(a,q)=(b,q',d)</i> means that for a symbol <i>a</i> read at the head and the current internal state <i>q</i>, the symbol <i>b</i> will be written 
+      instead of <i>a</i>, the internal state becomes <i>q'</i> and the head shifts in the direction <i>d</i>.
+    </p>
+    <img src="images/transition function.png" alt="Transition function" style="width:650px;height:300px;">
     <!-- show javascript representation -->
     <div class="container" id="turingMachineContent">
       <div id="canvas2"></div>
@@ -69,9 +91,13 @@
 
     <h2 id="refs">References</h2>
     <p>
-      [1] C. Yang and Z. Zhang. <i>A proof of Ollinger’s conjecture: undecidability of tiling the plane with a set of 8 polyominoes</i>. 2024. <a href = "https://doi.org/10.48550/arXiv.2403.13472">https://doi.org/10.48550/arXiv.2403.13472</a>.<br>
+      [1] C. Yang and Z. Zhang. <i>A proof of Ollinger’s conjecture: undecidability of tiling the plane with a set of 8 polyominoes</i>. 2024. 
+        <a href = "https://doi.org/10.48550/arXiv.2403.13472">https://doi.org/10.48550/arXiv.2403.13472</a>.<br>
       [2] R. Berger. "The undecidability of the domino problem". In: <i>Memoirs of the American Mathematical Society</i> 66 (1966), pp. 1–72. <br>
       [3] S.W. Golomb. “Tiling with polyominoes”. In: <i>Journal of Combinatorial Theory</i> 1.2 (1966), pp. 280–296.<br>
+      [4] E. Jeandel and P. Vanier. “The Undecidability of the Domino Problem”. In: <i>Substitution and Tiling Dynamics: Introduction to Self-inducing 
+        Structures: CIRM Jean-Morlet Chair</i>, Fall 2017. Ed. by S. Akiyama and P. Arnoux. Cham: Springer International Publishing, 2020, pp. 293–357. isbn: 978-3-030-57666-0. 
+        <a href="https://doi.org/10.1007/978-3-030-57666-0_6">https://doi.org/10.1007/978-3-030-57666-0_6</a><br>.
     </p>
 
   </body>

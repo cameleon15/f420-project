@@ -3,6 +3,7 @@ import { WangTile } from "../model/wangTile.js";
 
 var wangTilesSketch = function(p) {
     var tiles = [];
+    let button;
   
     function randomTiles() {
       tiles = [];
@@ -14,12 +15,13 @@ var wangTilesSketch = function(p) {
         tiles.push(new WangTile(n, e, s, w));
       }
     }
+
     p.setup = function() {
       let canvas1 = p.createCanvas(p.windowWidth, 200);
       canvas1.parent("canvas1");
       randomTiles();
       
-      let button = p.createButton("New set of tiles");
+      button = p.createButton("New set of tiles");
       button.parent("canvas1");
       button.center('horizontal');
       button.mousePressed(randomTiles);
@@ -29,7 +31,7 @@ var wangTilesSketch = function(p) {
       p.background(255);
       p.fill("black");
       p.textSize(20);
-      p.text("Set of 5 Wang tiles with random colors", p.windowWidth/2-180, 20);
+      p.text("Set of 5 Wang tiles with random colors", p.windowWidth/2-200, 20);
       let x = p.windowWidth/2-250;
       let y = 75;
       for (let i=0; i < tiles.length; i++) {
@@ -40,7 +42,6 @@ var wangTilesSketch = function(p) {
   
     p.windowResized = function () {
       p.resizeCanvas(p.windowWidth, 200);
-      p.text("Set of 5 Wang tiles with random colors", p.windowWidth/2-180, 20);
       button.center('horizontal');
     };
   };

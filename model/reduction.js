@@ -25,13 +25,13 @@ export class Reduction {
       for (const [read, step] of Object.entries(transitions)) {
         if (step.direction > 0) {
           this.actionTiles[[state, read]] = new WangTile(valueMap.get(state+read), valueMap.get(step.newState), valueMap.get(step.rewrite), valueMap.get(empty));
-          for (let j=0; j< alphabet.length; j++) {
-            if (!this.moveTiles[[alphabet[j], step.newState]]) this.moveTiles[[alphabet[j], step.newState]] = new WangTile(valueMap.get(alphabet[j]), valueMap.get(empty), valueMap.get(step.newState+alphabet[j]), valueMap.get(step.newState));
+          for (let j=0; j< this.machine.alphabet.length; j++) {
+            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]]) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(empty), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(step.newState));
           }
         } else {
           this.actionTiles[[state, read]] = new WangTile(valueMap.get(state+read), valueMap.get(empty), valueMap.get(step.rewrite), valueMap.get(step.newState));
-          for (let j=0; j< alphabet.length; j++) {
-            if (!this.moveTiles[[alphabet[j], step.newState]]) this.moveTiles[[alphabet[j], step.newState]] = new WangTile(valueMap.get(alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+alphabet[j]), valueMap.get(empty));}
+          for (let j=0; j< this.machine.alphabet.length; j++) {
+            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]]) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(empty));}
         }
       }
     }
@@ -81,6 +81,7 @@ export class Reduction {
       y += tileWidth;
       x = align;
     }
+    return y;
   }
 }
 
