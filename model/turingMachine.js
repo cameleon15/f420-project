@@ -1,3 +1,5 @@
+import { maxIter } from "../constants.js";
+
 export class MachineStep {
   constructor(newState, rewrite, direction) {
     this.newState = newState;
@@ -60,8 +62,10 @@ export class TuringMachine {
   run(input) {
     this.tape = input;
     this.steps.push(new MachineState(this.currentState, this.currentState, this.tape[this.head], this.head, structuredClone(this.tape), 0));
-    while (this.currentState != this.finalState) {
+    let i = 0;
+    while (i < maxIter && this.currentState != this.finalState) {
       this.read();
+      i++;
     }
   }
 

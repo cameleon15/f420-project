@@ -1,12 +1,13 @@
-import { tileWidth } from "../constants.js";
+import { alphabet, finalState2, states2, tileWidth, transitionTable2 } from "../constants.js";
 import { Reduction } from "../model/reduction.js";
 
 var reductionSketch = function(p) {
-  let reduction = new Reduction();
+  let reduction = new Reduction(states2, alphabet, finalState2, transitionTable2);
   let button1;
   let button2;
   let inputBar;
-  let canvasy;
+  let canvas3;
+  let canvas3y;
 
   function startReduction() {
     let input = inputBar.value();
@@ -15,33 +16,38 @@ var reductionSketch = function(p) {
 
   function clear() {
     p.background(255);
-    reduction = new Reduction();
+    reduction = new Reduction(states2, alphabet, finalState2, transitionTable2);
   }
   
   p.setup = function() {
     p.textAlign(p.CENTER, p.CENTER);
-    let canvas3 = p.createCanvas(p.windowWidth-100, 500);
+    canvas3 = p.createCanvas(p.windowWidth, 1000);
     canvas3.parent("canvas3");
-    canvasy = canvas3.elt.offsetTop;
+    canvas3y = canvas3.elt.offsetTop;
     
     inputBar = p.createInput("#111");
     inputBar.parent("canvas3");
-    inputBar.position(50, canvasy+90);
+    inputBar.position(50, canvas3y+90);
     inputBar.attribute("id", "inputBar2");
     button1 = p.createButton("Execute");
     button1.parent("canvas3");
-    button1.position(230, canvasy+90);
+    button1.position(230, canvas3y+90);
     button1.mousePressed(startReduction);
     button2 = p.createButton("Clear");
     button2.parent("canvas3");
-    button2.position(300, canvasy+90);
+    button2.position(300, canvas3y+90);
     button2.mousePressed(clear);
   };
 
   p.draw = function() {
     p.background(255);
+    canvas3y = canvas3.elt.offsetTop;
+    inputBar.position(50, canvas3y+90);
+    button1.position(230, canvas3y+90);
+    button2.position(300, canvas3y+90);
     p.fill("black");
     p.textSize(20);
+    p.textAlign(p.CENTER);
     p.text("Reduction Simulation", p.windowWidth/2, 50);
     p.textSize(15);
     p.textAlign(p.LEFT);
@@ -67,8 +73,10 @@ var reductionSketch = function(p) {
     y += 20;
     for (let i=0; i < reduction.machine.alphabet.length; i++) {
       let tile = reduction.headTiles[reduction.machine.alphabet[i]];
-      tile.draw(p, x, y, true);
-      x += tileWidth+10;
+      if (tile) {
+        tile.draw(p, x, y, true);
+        x += tileWidth+10;
+      }
     }
     
     let align = 50 + 3*(tileWidth+10) + 20;
@@ -78,16 +86,18 @@ var reductionSketch = function(p) {
     p.text("Action tiles", align, y);
     p.textSize(10);
     y += 20;
-    for (let i=0; i<reduction.machine.states.length-1; i++) {
+    for (const [state, transitions] of Object.entries(reduction.machine.transitionTable)) {
       x = align;
-      p.text(reduction.machine.states[i], x-10, y+tileWidth/2);
-      for (let j=0; j<reduction.machine.alphabet.length; j++) {
-        let tile = reduction.actionTiles[[reduction.machine.states[i], reduction.machine.alphabet[j]]];
+      p.text(state, x-10, y+tileWidth/2);
+      for (const symbol of Object.keys(transitions)) {
+        let tile = reduction.actionTiles[[state, symbol]];
         tile.draw(p, x, y, true);
         x += tileWidth+10;
       }
       y += tileWidth+10;
     }
+
+    let lowest = y;
     
     align = x + 20;
     x = align;
@@ -102,29 +112,32 @@ var reductionSketch = function(p) {
       tile.draw(p, x, y, true);
       x += tileWidth+10;
       k+=1
-      if (k == reduction.machine.alphabet.length) {
+      if (k == 5) {
         x = align;
         y += tileWidth+10;
         k = 0;
       }
     }
 
+    if (lowest > y) y = lowest;
+
     x = 50;
     p.textSize(15);
     p.textAlign(p.LEFT);
-    p.text("Binary increment", x, y);
+    p.text("Tiling of the Turing machine steps (20 first steps)", x, y+5);
     p.textSize(10);
-    y += 20;
+    y = lowest + 20;
     let height = reduction.draw(p, x, y);
     height = Math.max(500, height + 50);
-    if (height != p.height) p.resizeCanvas(p.windowWidth-100, height);
+    if (height != p.height) p.resizeCanvas(p.windowWidth, height);
   };
 
   p.windowResized = function() {
-    p.resizeCanvas(p.windowWidth-100, p.windowHeight);
-    inputBar.position(50, canvasy+80);
-    button1.position(230, canvasy+80);
-    button2.position(300, canvasy+80);
+    p.resizeCanvas(p.windowWidth, p.windowHeight);
+    inputBar.position(50, canvas3y+90);
+    button1.position(230, canvas3y+90);
+    button2.position(300, canvas3y+90);
+    canvas3y = canvas3.elt.offsetTop;
   };
 };
 

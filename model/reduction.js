@@ -1,9 +1,9 @@
-import { alphabet, empty, finalState, left, right, states, tileWidth, transitionTable, valueMap } from "../constants.js";
+import { empty, left, right, tileWidth, valueMap } from "../constants.js";
 import { TuringMachine } from "./turingMachine.js";
 import { WangTile } from "./wangTile.js";
 
 export class Reduction {
-  constructor() {
+  constructor(states, alphabet, finalState, transitionTable) {
     this.machine = new TuringMachine(states, alphabet, finalState, transitionTable);
     this.alphabetTiles = {};
     this.headTiles = {};
@@ -18,20 +18,20 @@ export class Reduction {
     for (let i=0; i < this.machine.alphabet.length; i++) {
         let letter = this.machine.alphabet[i];
         this.alphabetTiles[letter] = new WangTile(valueMap.get(letter), valueMap.get(empty), valueMap.get(letter), valueMap.get(empty));
-        this.headTiles[letter] = new WangTile(valueMap.get(letter), valueMap.get(empty), valueMap.get(this.machine.states[0]+letter), valueMap.get(empty));
+        if (valueMap.has(this.machine.states[0]+letter)) this.headTiles[letter] = new WangTile(valueMap.get(letter), valueMap.get(empty), valueMap.get(this.machine.states[0]+letter), valueMap.get(empty));
     }
 
-    for (const [state, transitions] of Object.entries(transitionTable)) {
+    for (const [state, transitions] of Object.entries(this.machine.transitionTable)) {
       for (const [read, step] of Object.entries(transitions)) {
         if (step.direction > 0) {
           this.actionTiles[[state, read]] = new WangTile(valueMap.get(state+read), valueMap.get(step.newState), valueMap.get(step.rewrite), valueMap.get(empty));
           for (let j=0; j< this.machine.alphabet.length; j++) {
-            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]]) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(empty), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(step.newState));
+            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]] && valueMap.get(step.newState+this.machine.alphabet[j])) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(empty), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(step.newState));
           }
         } else {
           this.actionTiles[[state, read]] = new WangTile(valueMap.get(state+read), valueMap.get(empty), valueMap.get(step.rewrite), valueMap.get(step.newState));
           for (let j=0; j< this.machine.alphabet.length; j++) {
-            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]]) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(empty));}
+            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]] && valueMap.get(step.newState+this.machine.alphabet[j])) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(empty));}
         }
       }
     }
