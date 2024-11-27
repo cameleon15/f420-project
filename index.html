@@ -10,14 +10,22 @@
     <script type="module" src="model/reduction.js"></script>
     <script type="module" src="constants.js"></script>
 
-    <title>Undecidability of the 5-polyomino problem</title>
+    <title>Undecidability of Wang tiling problem</title>
   </head>
   <body>
-    <h1>Undecidability of the 5-polyomino problem</h1>
+    <h1>Undecidability of Wang tiling problem</h1>
     <p>
       <i>This project was completed as part of the Computational Geometry course (INFO-F420) by Camille Leduc.</i>
     </p>
     <h2>Our problem</h2>
+    <p>
+      Yang and Zhang have proven Ollinger's conjecture that the 8-polyomino tiling problem is undecidable [<a href="#refs">1</a>].
+      They raise the question regarding the <i>k</i>-polyomino tiling problem for <i>2 &leq; k &leq; 7</i>. We will address this problem
+      for <i>k</i> = 5. They have already proved that the 8-polyomino tiling problem is undecidable [<a href="#refs">1</a>]. Before that 
+      Ollinger had proved that the 11-polyomino tiling problem was undecidable. However, we will work with Wang tiles as they are easier to represent.
+      The reduction of Wang domino problem towards the problem of tiling the plane with a set of polyominoes was shown by Golomb [<a href="#refs">5</a>].
+    </p>
+
 
     <h2>Key concepts</h2>
     <h3>Wang tiles</h3>
@@ -26,15 +34,11 @@
       Wang's domino problem involves tiling the entire plane with translated copies from a finite set of Wang tiles. 
       The tiles must be edge-to-edge and the color of common edges between two adjacent Wang tiles must be the same [<a href="#refs">1</a>]. 
     </p>
-    <figure>
-      <img src="images/wangtiles.png" alt="Set of 3 Wang tiles" style="width:320px;height:90px;">
-      <figcaption>Set of 3 Wang tiles [<a href="#refs">1</a>]</figcaption>
-    </figure>
     <p>
       Berger showed that Wang's domino problem is undecidable combining the facts of the existence of an aperiodic set of Wang tiles and the ability to simulate a 
       Turing machine with Wang tiles [<a href="#refs">1</a>][<a href="#refs">2</a>].
     </p>
-    <!-- show javascript representation -->
+    <!-- javascript representation -->
     <div class="container" id="wangContent">
       <div id="canvas1"></div>
     </div>
@@ -51,6 +55,7 @@
       <figcaption>Set of pentominoes [<a href ="https://www.cs.brandeis.edu/~storer/JimPuzzles/ZPAGES/zzzPentominoes.html">source</a>]</figcaption>
     </figure>
 
+
     <h3>Turing machine</h3>
     <p>
       A Turing machine is a formal definition of computation device [<a href="#refs">4</a>]. It takes an input over a given alphabet and outputs the result after several steps. 
@@ -66,38 +71,96 @@
       <ul>
         <li>A finite set of states <i>Q</i> with an accepting and a refusing state.</li>
         <li>An input alphabet <i>&Sigma;</i>.</li>
-        <li>A work alphabet <i>T &supset; &Sigma;</i>, containing the symbol "#"", called the blank symbol.</li>
+        <li>A work alphabet <i>T &supset; &Sigma;</i>, containing the symbol "#", called the blank symbol.</li>
         <li>A transition function <i>&delta;: T &times; Q &rightarrow; T &times; Q &times; {-1,1}</i>.</li>
       </ul>
       The transition function such that <i>&delta;(a,q)=(b,q',d)</i> means that for a symbol <i>a</i> read at the head and the current internal state <i>q</i>, the symbol <i>b</i> will be written 
       instead of <i>a</i>, the internal state becomes <i>q'</i> and the head shifts in the direction <i>d</i>.
     </p>
-    <img src="images/transition function.png" alt="Transition function" style="width:650px;height:300px;">
-    <!-- show javascript representation -->
+    <img src="images/transition function.png" alt="Transition function" style="width:650px;height:140px;">
+    <p>
+      This is a simple binary increment Turing machine. You can see it in action in the interactive section below.
+    </p>
+    <!-- javascript representation -->
     <div class="container" id="turingMachineContent">
       <div id="canvas2"></div>
     </div>
     <script type="module" src="view/turingMachineSketch.js"></script>
 
+
     <h3>Undecidability</h3>
+    <p>
+      An undecidable problem is a problem that cannot be solved algorithmically. It is a decision problem for which there is no 
+      algorithm or Turing machine that can provide a yes or no answer. They must also have a stopping criterion such that for 
+      some inputs, the computation may run forever. To prove that a problem is undecidable, a known undecidable problem can be 
+      reduced to it. One of those undecidable problems is the Halting problem.
+    </p>
+    <p>
+      The Halting problem is defined as such: "There is no algorithm that, given a Turing machine <i>M</i> and a word <i>u</i>, 
+      decides if <i>M</i> halts on input <i>u</i>".
+    </p>
+
 
     <h2>Reduction from Turing machine to Wang tiles</h2>
-
-    <!-- show javascript representation -->
+    <p>
+      To prove that Wang's domino problem is undecidable, we do a reduction from a Turing machine to Wang tiles.
+    </p>
+    <p>
+      <b>Theorem 1</b> <i>If there exists a reduction from a problem A to a problem B and problem A is known to be undecidable, then the problem B must also be undecidable.</i>
+    </p>
+    <p>
+      With the help of theorem 1, we can prove that Wang tiling problem is undecidable if there exists a reduction towards the Halting problem, mentioned before.
+      To do so, we need to build Wang tiles based on the elements of a Turing machine. We will, therefore, have 4 different types of tiles:
+      <ul>
+        <li>Alphabet tile: each tile represents a cell of the tape containing a symbol of the alphabet, with the symbol on the north and south edges.</li>
+        <li>Head tile: there is one tile by symbol of the alphabet and it represents the initial position of the head and the initial state, each tile has the symbol on its 
+          north edge and the initial state with the symbol on its south edge.</li>
+        <li>Action tile: it represents the rewrite of the symbol and the change of the internal state, the north edge has the current state and the south edge has the new 
+          symbol and the east or west edge, depending on the direction, has the new state.</li>
+        <li>Move tile: it represents the head at its new position, the north edge has the symbol read at the new position, the south edge has, similarly to the head tile, 
+          the new current state with the symbol read and the east or west edge, depending on the direction of the action tile, the current new state.</li>
+      </ul>
+    </p>
+    <p>
+      For the transition function, we used one provided by Jeandel and Vanier [<a href="#refs">4</a>], see below.
+    </p>
+    <img src="images/transition function1.png" alt="Collatz sequence" style="width:400px;height:600px;">
+    <p>
+      You can run the reduction with either the binary increment machine or the one with the Collatz sequence and see the result for yourself.
+    </p>
+    <!-- javascript representation -->
     <div class="container" id="reductionContent">
       <div id="canvas3"></div>
     </div>
     <script type="module" src="view/reductionSketch.js"></script>
 
+    <h3>How does it work ?</h3>
+    <p>
+      The reduction object has a Turing machine attribute. It builds its tiles based on the transition function of machine. When the reduction runs, it launches the run of the machine.
+      The machine executes the steps until it reaches the final internal state. The machine stores its state at each step of the execution. The reduction then builds an array for each 
+      step with its tiles based on the machine's steps.
+    </p>
+
+    <h3>Results</h3>
+    <p>
+      We can do the reduction with two different machines. Eventually the machine will stop and therefore also the tiling of the plane. Because the machine stops, we can say that this set 
+      of tiles cannot cover the plane.
+    </p>
+    <p>
+      To link this work to Yang and Zhang's paper, we should do a second reduction to a smaller set of Wang tiles of size 2 to 7.
+    </p>
+
     <h2 id="refs">References</h2>
     <p>
       [1] C. Yang and Z. Zhang. <i>A proof of Ollinger’s conjecture: undecidability of tiling the plane with a set of 8 polyominoes</i>. 2024. 
         <a href = "https://doi.org/10.48550/arXiv.2403.13472">https://doi.org/10.48550/arXiv.2403.13472</a>.<br>
-      [2] R. Berger. "The undecidability of the domino problem". In: <i>Memoirs of the American Mathematical Society</i> 66 (1966), pp. 1–72. <br>
+      [2] R. Berger. “The undecidability of the domino problem”. In: <i>Memoirs of the American Mathematical Society</i> 66 (1966), pp. 1–72. <br>
       [3] S.W. Golomb. “Tiling with polyominoes”. In: <i>Journal of Combinatorial Theory</i> 1.2 (1966), pp. 280–296.<br>
       [4] E. Jeandel and P. Vanier. “The Undecidability of the Domino Problem”. In: <i>Substitution and Tiling Dynamics: Introduction to Self-inducing 
         Structures: CIRM Jean-Morlet Chair</i>, Fall 2017. Ed. by S. Akiyama and P. Arnoux. Cham: Springer International Publishing, 2020, pp. 293–357. isbn: 978-3-030-57666-0. 
-        <a href="https://doi.org/10.1007/978-3-030-57666-0_6">https://doi.org/10.1007/978-3-030-57666-0_6</a><br>.
+        <a href="https://doi.org/10.1007/978-3-030-57666-0_6">https://doi.org/10.1007/978-3-030-57666-0_6</a><br>
+      [5] S.W. Golomb. “Tiling with sets of polyominoes”. In: <i>Journal of Combinatorial Theory</i> 9.1 (1970), pp. 60–71. issn: 0021-9800. 
+      <a href="https://www.sciencedirect.com/science/article/pii/S0021980070800552">https://www.sciencedirect.com/science/article/pii/S0021980070800552</a><br>
     </p>
 
   </body>

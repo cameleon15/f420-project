@@ -49,7 +49,7 @@ var turingMachineSketch = function(p) {
       p.text("Turing Machine Simulation", 10, 40);
       p.textSize(15);
       p.text("Enter a word on alphabet (0, 1, #)", 15, 70);
-      let y = machine.draw(p, 20, 170);
+      let y = machine.draw(p, 20, 150);
       let height = Math.max(400, y + 50);
       if (height != p.height) p.resizeCanvas(p.windowWidth, height);
     };
