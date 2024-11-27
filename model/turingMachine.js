@@ -63,7 +63,7 @@ export class TuringMachine {
     this.tape = input;
     this.steps.push(new MachineState(this.currentState, this.currentState, this.tape[this.head], this.head, structuredClone(this.tape), 0));
     let i = 0;
-    while (i < maxIter && this.currentState != this.finalState) {
+    while (this.currentState != this.finalState) {
       this.read();
       i++;
     }

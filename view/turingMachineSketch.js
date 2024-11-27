@@ -20,48 +20,46 @@ var turingMachineSketch = function(p) {
     }
   
     p.setup = function() {
-      canvas2 = p.createCanvas(p.windowWidth, 500);
+      canvas2 = p.createCanvas(p.windowWidth-100, 500);
       canvas2.parent("canvas2");
       canvas2y = canvas2.elt.offsetTop;
 
       inputBar = p.createInput("111");
       inputBar.parent("canvas2");
-      inputBar.position(50, canvas2y+60);
+      inputBar.position(20, canvas2y+90);
       inputBar.attribute("id", "inputBar1");
       button1 = p.createButton("Execute");
       button1.parent("canvas2");
-      button1.position(50, canvas2y+90);
+      button1.position(20, canvas2y+140);
       button1.mousePressed(startMachine);
       button2 = p.createButton("Clear");
       button2.parent("canvas2");
-      button2.position(120, canvas2y+90);
+      button2.position(90, canvas2y+140);
       button2.mousePressed(clear);
     };
   
     p.draw = function() {
       p.background(255);
       canvas2y = canvas2.elt.offsetTop;
-      inputBar.position(50, canvas2y+60);
-      button1.position(50, canvas2y+90);
-      button2.position(120, canvas2y+90);
+      inputBar.position(20, canvas2y+90);
+      button1.position(20, canvas2y+120);
+      button2.position(90, canvas2y+120);
       p.fill("black");
       p.textSize(20);
-      p.textAlign(p.CENTER);
-      p.text("Turing Machine Simulation", p.windowWidth/2, 40);
+      p.text("Turing Machine Simulation", 10, 40);
       p.textSize(15);
-      p.textAlign(p.LEFT);
-      p.text("Enter a word on alphabet (0, 1, #)", 50, 50);
-      let y = machine.draw(p, 50, 150);
+      p.text("Enter a word on alphabet (0, 1, #)", 15, 70);
+      let y = machine.draw(p, 20, 170);
       let height = Math.max(400, y + 50);
       if (height != p.height) p.resizeCanvas(p.windowWidth, height);
     };
   
     p.windowResized = function() {
-      p.resizeCanvas(p.windowWidth, p.windowHeight);
-      inputBar.position(50, canvas2y+60);
-      button1.position(50, canvas2y+90);
-      button2.position(120, canvas2y+90);
+      p.resizeCanvas(p.windowWidth-100, p.windowHeight);
       canvas2y = canvas2.elt.offsetTop;
+      inputBar.position(20, canvas2y+90);
+      button1.position(20, canvas2y+140);
+      button2.position(90, canvas2y+140);
     };
   };
   

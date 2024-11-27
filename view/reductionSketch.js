@@ -20,38 +20,33 @@ var reductionSketch = function(p) {
   }
   
   p.setup = function() {
-    p.textAlign(p.CENTER, p.CENTER);
     canvas3 = p.createCanvas(p.windowWidth, 1000);
     canvas3.parent("canvas3");
     canvas3y = canvas3.elt.offsetTop;
     
     inputBar = p.createInput("#111");
     inputBar.parent("canvas3");
-    inputBar.position(50, canvas3y+90);
     inputBar.attribute("id", "inputBar2");
     button1 = p.createButton("Execute");
     button1.parent("canvas3");
-    button1.position(230, canvas3y+90);
     button1.mousePressed(startReduction);
     button2 = p.createButton("Clear");
     button2.parent("canvas3");
-    button2.position(300, canvas3y+90);
     button2.mousePressed(clear);
   };
 
   p.draw = function() {
     p.background(255);
     canvas3y = canvas3.elt.offsetTop;
-    inputBar.position(50, canvas3y+90);
-    button1.position(230, canvas3y+90);
-    button2.position(300, canvas3y+90);
+    inputBar.position(20, canvas3y+90);
+    button1.position(195, canvas3y+90);
+    button2.position(265, canvas3y+90);
     p.fill("black");
     p.textSize(20);
-    p.textAlign(p.CENTER);
-    p.text("Reduction Simulation", p.windowWidth/2, 50);
-    p.textSize(15);
     p.textAlign(p.LEFT);
-    p.text("Enter a word on alphabet (0, 1, #) (the word must start by '#')", 45, 70);
+    p.text("Reduction Simulation", 10, 50);
+    p.textSize(15);
+    p.text("Enter a word on the alphabet (0, 1, #) (the word must start by '#')", 15, 70);
 
     let x = 50;
     let y = 130;
@@ -134,10 +129,10 @@ var reductionSketch = function(p) {
 
   p.windowResized = function() {
     p.resizeCanvas(p.windowWidth, p.windowHeight);
-    inputBar.position(50, canvas3y+90);
-    button1.position(230, canvas3y+90);
-    button2.position(300, canvas3y+90);
     canvas3y = canvas3.elt.offsetTop;
+    inputBar.position(20, canvas3y+90);
+    button1.position(195, canvas3y+90);
+    button2.position(265, canvas3y+90);
   };
 };
 

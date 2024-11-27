@@ -28,10 +28,21 @@ export class Reduction {
           for (let j=0; j< this.machine.alphabet.length; j++) {
             if (!this.moveTiles[[this.machine.alphabet[j], step.newState]] && valueMap.get(step.newState+this.machine.alphabet[j])) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(empty), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(step.newState));
           }
+          if (step.newState == this.machine.finalState) {
+            for (let j=0; j< this.machine.alphabet.length; j++) {
+              this.moveTiles[[this.machine.alphabet[j], this.machine.finalState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(empty), valueMap.get(this.machine.alphabet[j]), valueMap.get(this.machine.finalState));
+            }
+          }
         } else {
           this.actionTiles[[state, read]] = new WangTile(valueMap.get(state+read), valueMap.get(empty), valueMap.get(step.rewrite), valueMap.get(step.newState));
           for (let j=0; j< this.machine.alphabet.length; j++) {
-            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]] && valueMap.get(step.newState+this.machine.alphabet[j])) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(empty));}
+            if (!this.moveTiles[[this.machine.alphabet[j], step.newState]] && valueMap.get(step.newState+this.machine.alphabet[j])) this.moveTiles[[this.machine.alphabet[j], step.newState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(step.newState), valueMap.get(step.newState+this.machine.alphabet[j]), valueMap.get(empty));
+          }
+          if (step.newState == this.machine.finalState) {
+            for (let j=0; j< this.machine.alphabet.length; j++) {
+              this.moveTiles[[this.machine.alphabet[j], this.machine.finalState]] = new WangTile(valueMap.get(this.machine.alphabet[j]), valueMap.get(this.machine.finalState), valueMap.get(this.machine.alphabet[j]), valueMap.get(empty));
+            }            
+          }
         }
       }
     }
