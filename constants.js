@@ -45,6 +45,9 @@ export const amber = "#FFBF00";
 export const azure = "#007FFF";
 export const chartreuse = "#7FFF00";
 export const turquoiseBlue = "#00FFEF";
+export const sepia = "#704214";
+export const periwinkle = "#CCCCFF";
+export const tan = "#D2B48C";
 
 export const colors = [red, orange, yellow, green, blue];
 
@@ -140,9 +143,12 @@ export const valueMap = new Map([
     ["1", blue],
     ["#", grey],
     [empty, white],
+    ["00", sepia],
+    ["01", periwinkle],
     ["0#", orange],
     ["10", green],
     ["11", yellow],
+    ["1#", tan],
     ["20", purple],
     ["21", teal],
     ["2#", darkBlue],
@@ -187,9 +193,12 @@ export const colorMap = new Map([
     [blue, "1"],
     [grey, "#"],
     [white, empty],
+    [sepia, "00"],
+    [periwinkle, "01"],
     [orange, "0#"],
     [green, "10"],
     [yellow, "11"],
+    [tan, "1#"],
     [purple, "20"],
     [teal, "21"],
     [darkBlue, "2#"],
